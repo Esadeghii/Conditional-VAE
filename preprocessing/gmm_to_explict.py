@@ -68,7 +68,7 @@ def disMaker(oneRow,condLen,avgStd):
         normalizedProbs = probVals/disMax
         return np.append(normalizedProbs,disMax)
 
-fpath  = "../data/combined_null_and_dis.csv"
+fpath  = "./preprocessing/data/combined_null_and_dis.csv"
 
 data = pd.read_csv(fpath)
 
@@ -78,7 +78,7 @@ avgStd = np.mean(stds[~np.isnan(stds)])
 
 
 
-condLen = 64
+condLen = 32
 # gets an array of the dis
 disArray =  np.array(data.apply(disMaker,args=(condLen,avgStd), axis=1).tolist())
 
@@ -90,20 +90,20 @@ data = pd.concat([data, dis], axis=1)
 
 bLog =  np.log(data["maxBright"])
 
-bins = np.linspace(0,max(bLog),64 )
+bins = np.linspace(0,max(bLog),32 )
 # remove bottom boundry
 bins = bins[1:]
 # remove top boundry
 bins = bins[:-1]
 
-np.savetxt("../data/log_bins.csv", bins, delimiter=",")
+np.savetxt("./preprocessing/data/log_bins.csv", bins, delimiter=",")
 
 hist = bLog.hist(bins=128)
 
 
 plt.show()
 
-data.to_csv("../data/seq_with_dis.csv")
+data.to_csv("./preprocessing/data/seq_with_dis.csv")
 
 
 
