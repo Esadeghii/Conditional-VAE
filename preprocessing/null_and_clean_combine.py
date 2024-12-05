@@ -1,20 +1,20 @@
 
 import pandas as pd
 
-xls = pd.ExcelFile("/content/data/230624_all_data_workup.xlsx")
+xls = pd.ExcelFile("../data/230624_all_data_workup.xlsx")
 
 df = pd.read_excel(xls, 'Normalized intensities and peak')
 
 seqs = df.Sequence.to_frame()
 
-fpath  = "/content/data/supercleanGMMFiltered.xlsx"
+fpath  = "../data/supercleanGMMFiltered.xlsx"
 
 xls = pd.ExcelFile(fpath)
 data = pd.read_excel(xls)
 
 mDF = seqs.merge(data,how='left',on='Sequence')
 
-mDF.to_csv('combined_null_and_dis.csv')
+mDF.to_csv('../data/combined_null_and_dis.csv')
 
 
 import collections
